@@ -21,14 +21,14 @@ from rest_framework.routers import DefaultRouter
 from django.urls import include, path
 # from experience.views import ExperienceViewSet
 from django.shortcuts import redirect
-# from project.views import ProjectViewSet
+from project.views import ProjectViewSet
 from resume.views import ResumeViewSet
 # from link.views import LinksViewSet
 
 
 router = DefaultRouter()
 # router.register(r"experience", ExperienceViewSet)
-# router.register(r"project", ProjectViewSet)
+router.register(r"project", ProjectViewSet)
 router.register(r"resume", ResumeViewSet, basename="resume")
 # router.register(r"links", LinksViewSet)
 
