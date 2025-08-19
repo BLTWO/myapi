@@ -4,7 +4,7 @@ from googleapiclient.discovery import build
 
 def fetch_and_update_resume():
     try:
-        SERVICE_ACCOUNT_FILE = "../service_account_cred.json"
+        SERVICE_ACCOUNT_FILE = "/Users/brand/Library/CloudStorage/OneDrive-UniversityofToronto/SelfProjects/myapi/myapi/service_account_cred.json"
         SCOPES = ["https://www.googleapis.com/auth/drive"]
 
         credentials = service_account.Credentials.from_service_account_file(
@@ -17,7 +17,7 @@ def fetch_and_update_resume():
         file_metadata = (
             service.files()
             .get(
-                fileId="1pSRqNRSTJX79sf9yEu0l_O14ZJTminDz",
+                fileId="10e7tnaku_r1-6PL3iId3qqQAC2ea3mFRzAvnPCRjR74",
                 fields="modifiedTime",
             )
             .execute()
@@ -28,7 +28,7 @@ def fetch_and_update_resume():
         resumefile_dic = (
             service.files()
             .download(
-                fileId="1pSRqNRSTJX79sf9yEu0l_O14ZJTminDz",
+                fileId="10e7tnaku_r1-6PL3iId3qqQAC2ea3mFRzAvnPCRjR74",
                 mimeType="application/pdf",
             )
             .execute()
