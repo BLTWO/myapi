@@ -17,7 +17,7 @@ def fetch_and_update_resume():
         file_metadata = (
             service.files()
             .get(
-                fileId="1UnaZwlVdjU4gxs4RSECZl6bKo8gx7P0RvL0p7woCjLA",
+                fileId="1pSRqNRSTJX79sf9yEu0l_O14ZJTminDz",
                 fields="modifiedTime",
             )
             .execute()
@@ -28,7 +28,7 @@ def fetch_and_update_resume():
         resumefile_dic = (
             service.files()
             .download(
-                fileId="1UnaZwlVdjU4gxs4RSECZl6bKo8gx7P0RvL0p7woCjLA",
+                fileId="1pSRqNRSTJX79sf9yEu0l_O14ZJTminDz",
                 mimeType="application/pdf",
             )
             .execute()
