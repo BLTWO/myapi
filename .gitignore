@@ -4,6 +4,9 @@
 # credentials
 .env
 
+#WhiteNoise
+staticfiles/
+
 # Byte-compiled / optimized / DLL files
 __pycache__/
 *.py[cod]
