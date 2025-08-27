@@ -1,8 +1,8 @@
 #macOS
 .DS_Store
 
-# google
-service_account_cred.json
+# credentials
+.env
 
 # Byte-compiled / optimized / DLL files
 __pycache__/
