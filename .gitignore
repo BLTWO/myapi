@@ -1,11 +1,11 @@
-#macOS
+# macOS
 .DS_Store
 
 # credentials
 .env
 
-#WhiteNoise
-staticfiles/
+# WhiteNoise
+# staticfiles/
 
 # Byte-compiled / optimized / DLL files
 __pycache__/
