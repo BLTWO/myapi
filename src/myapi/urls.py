@@ -24,6 +24,9 @@ from django.shortcuts import redirect
 from project.views import ProjectViewSet
 from resume.views import ResumeViewSet
 # from link.views import LinksViewSet
+from rest_framework.response import Response
+from rest_framework.decorators import api_view
+from rest_framework.reverse import reverse
 
 
 router = DefaultRouter()
@@ -32,9 +35,20 @@ router.register(r"project", ProjectViewSet)
 router.register(r"resume", ResumeViewSet, basename="resume")
 # router.register(r"links", LinksViewSet)
 
+@api_view(['GET'])
+def api_root(request, format=None):
+    return Response({
+        "auth/register": reverse("register", request=request, format=format),
+        "auth/login": reverse("login", request=request, format=format),
+        "auth/logout": reverse("logout", request=request, format=format),
+        "projects": reverse("project-list", request=request, format=format),
+        "resumes": reverse("resume-list", request=request, format=format),
+    })
+
 urlpatterns = [
     path("", lambda request: redirect("api/", permanent=False)),
     path("admin/", admin.site.urls),
+    path("api/", api_root),
     path("api/", include(router.urls)),
     path("api/auth/", include("userauth.urls")),
 ]
