@@ -42,12 +42,22 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'rest_framework',  # Django REST Framework
+    # Third-party apps
+    "rest_framework",
+    "dj_rest_auth",
+    "dj_rest_auth.registration",
+    "django.contrib.sites",
+    "allauth",
+    "allauth.account",
+    "rest_framework.authtoken",
+    "allauth.socialaccount",
+    # My apps
     "experience",
     "project",
     "resume",
     "link",
     "tag",
+    "userauth",
 ]
 
 MIDDLEWARE = [
@@ -59,6 +69,7 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'allauth.account.middleware.AccountMiddleware',
 ]
 
 ROOT_URLCONF = 'myapi.urls'
@@ -142,3 +153,19 @@ REST_FRAMEWORK = {
     	'rest_framework.authentication.TokenAuthentication',
     ],
 }
+
+# Django REST Auth settings
+REST_AUTH = {
+    'USE_JWT': True,
+    'JWT_AUTH_COOKIE': 'djangojwtauth_cookie',
+    'JWT_AUTH_REFRESH_COOKIE': 'djangojwtauth_refresh_cookie',
+}
+
+REST_FRAMEWORK = {
+    'DEFAULT_AUTHENTICATION_CLASSES': [
+        'dj_rest_auth.jwt_auth.JWTCookieAuthentication',
+    ],
+}
+
+ACCOUNT_EMAIL_VERIFICATION = "none"
+ACCOUNT_EMAIL_REQUIRED = False

@@ -4,8 +4,11 @@ cachetools==5.5.2
 certifi==2025.8.3
 charset-normalizer==3.4.3
 dj-database-url==3.0.1
-Django==5.2.4
+dj-rest-auth==7.0.1
+Django==5.2.5
+django-allauth==65.11.1
 djangorestframework==3.16.1
+djangorestframework_simplejwt==5.5.1
 dotenv==0.9.9
 google-api-core==2.25.1
 google-api-python-client==2.179.0
@@ -26,6 +29,7 @@ protobuf==6.32.0
 psycopg2-binary==2.9.10
 pyasn1==0.6.1
 pyasn1_modules==0.4.2
+PyJWT==2.10.1
 pyparsing==3.2.3
 python-decouple==3.8
 python-dotenv==1.1.1

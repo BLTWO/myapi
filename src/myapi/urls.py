@@ -36,4 +36,5 @@ urlpatterns = [
     path("", lambda request: redirect("api/", permanent=False)),
     path("admin/", admin.site.urls),
     path("api/", include(router.urls)),
+    path("api/auth/", include("userauth.urls")),
 ]
