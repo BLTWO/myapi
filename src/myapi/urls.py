@@ -46,8 +46,8 @@ def api_root(request, format=None):
     })
 
 urlpatterns = [
-    path("", lambda request: redirect("api/", permanent=False)),
-    path("admin/", admin.site.urls),
+    #path("", lambda request: redirect("api/", permanent=False)),
+    path("api/admin/", admin.site.urls),
     path("api/", api_root),
     path("api/", include(router.urls)),
     path("api/auth/", include("userauth.urls")),
