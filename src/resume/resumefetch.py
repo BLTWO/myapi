@@ -1,58 +1,41 @@
 from google.oauth2 import service_account
 from googleapiclient.discovery import build
-from os import environ
-from json import loads
-from dotenv import load_dotenv
-
-load_dotenv()
+import os
+import json
 
 
 def fetch_and_update_resume():
     try:
-        SERVICE_ACCOUNT_FILE = environ.get("SERVICE_ACCOUNT_KEY")
+        SERVICE_ACCOUNT_JSON = os.environ.get("SERVICE_ACCOUNT_KEY")
         SCOPES = ["https://www.googleapis.com/auth/drive"]
 
-        if not SERVICE_ACCOUNT_FILE:
+        if not SERVICE_ACCOUNT_JSON:
             raise ValueError("SERVICE_ACCOUNT_KEY not found in environment variables")
 
-        service_account_info = loads(SERVICE_ACCOUNT_FILE)
+        service_account_info = json.loads(SERVICE_ACCOUNT_JSON)
         credentials = service_account.Credentials.from_service_account_info(
             service_account_info, scopes=SCOPES
         )
 
         service = build("drive", "v3", credentials=credentials)
 
-        # Get the file metadata (for modified time)
-        file_metadata = (
+        file = (
             service.files()
             .get(
                 fileId="10e7tnaku_r1-6PL3iId3qqQAC2ea3mFRzAvnPCRjR74",
-                fields="modifiedTime",
+                fields="id, name, mimeType, webViewLink, thumbnailLink, modifiedTime",
             )
             .execute()
         )
-        date_modified = file_metadata.get("modifiedTime")
+        date_modified = file.get("modifiedTime")
 
-        # Get the export link for PDF (Google Docs files require export)
-        resumefile_dic = (
-            service.files()
-            .download(
-                fileId="10e7tnaku_r1-6PL3iId3qqQAC2ea3mFRzAvnPCRjR74",
-                mimeType="application/pdf",
-            )
-            .execute()
-        )
+        docLink = file.get('webViewLink')
 
-        download_uri = resumefile_dic["response"]["downloadUri"]
-        print(download_uri)
-
-        # Import here to avoid app loading issues
         from .models import Resume
 
-        resume, created = Resume.objects.get_or_create(id=1)
-        resume.resume_uri = download_uri
-        resume.date = date_modified
-        resume.save()
+        last_resume = Resume.objects.order_by("-date").first()
+        if not last_resume or last_resume.date != date_modified:
+            Resume.objects.create(resume_uri=docLink, date=date_modified)
 
     except Exception as e:
         print(f"Error fetching resume in ready(): {e}")
